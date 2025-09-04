@@ -47,6 +47,10 @@ void bind_seal_encrypt_decrypt(pybind11::module &m) {
         .def(py::init<>())
         .def("data", py::overload_cast<>(&SecretKey::data, py::const_),
              py::return_value_policy::reference)
+        .def("set_data",
+             [](SecretKey &sk, const Plaintext &pt) {
+                 sk.data() = pt;
+             })
         .def("parms_id", py::overload_cast<>(&SecretKey::parms_id, py::const_))
         .def("save",
              [](const SecretKey &s, std::string &path) {
